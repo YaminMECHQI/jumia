@@ -68,7 +68,7 @@
                 </td>
                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                   <button wire:click="edit({{$product->id}})" class="inline-flex px-4 py-2 m-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"> Edit </button>
-                  <button class="inline-flex px-4 py-2 m-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"> Delete </button>
+                  <button wire:click="delete({{$product->id}})" class="inline-flex px-4 py-2 m-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"> Delete </button>
                 </td>
               </tr>
               @endforeach

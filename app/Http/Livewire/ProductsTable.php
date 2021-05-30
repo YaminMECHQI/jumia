@@ -69,7 +69,7 @@ class ProductsTable extends Component
             'category_id' => 1,
             ]
         );
-
+        $this->emit('productAdded');
         $this->close();
         $this->resetForm();
     }
@@ -77,6 +77,10 @@ class ProductsTable extends Component
     public function edit($id){
         $this->product = Product::findOrFail($id);
         $this->open();
+    }
+
+    public function delete($id){
+        Product::find($id)->delete();
     }
 
     public function render()
