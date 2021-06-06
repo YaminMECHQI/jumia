@@ -62,8 +62,6 @@ class ProductsTable extends Component
 
         $this->validate();
 
-        
-
         Product::updateOrCreate(
             ['id' => $this->product->id],
             [
