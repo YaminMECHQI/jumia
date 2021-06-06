@@ -4,11 +4,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ProductsTable extends Component
 {
     
-    public $type,$open;
+    use WithFileUploads;
+
+    public $type,$open,$cover;
     public $products;
     //public $title,$price,$quantity,$status,$cover,$category_id; old
     public Product $product;
@@ -18,7 +21,7 @@ class ProductsTable extends Component
         'product.price' => 'required',
         'product.quantity' => 'required',
         'product.status' => 'required',
-        'product.cover' => 'required',
+        'cover' => 'image|max:1024',
     ];
 
     public function mount(){
@@ -47,6 +50,7 @@ class ProductsTable extends Component
     }
 
     public function saveOrUpdate(){
+        //dd($this->cover->);
         /*$product = new Product();
 
         $product->title=$this->title; //old $request->input('title');
@@ -58,6 +62,8 @@ class ProductsTable extends Component
 
         $this->validate();
 
+        
+
         Product::updateOrCreate(
             ['id' => $this->product->id],
             [
@@ -65,10 +71,13 @@ class ProductsTable extends Component
             'price' => $this->product->price,
             'quantity' => $this->product->quantity,
             'status' => $this->product->status,
-            'cover' => $this->product->cover,
+            'cover' => $this->cover->hashName(),
             'category_id' => 1,
             ]
         );
+
+        $this->cover->store('public');
+
         $this->emit('productAdded');
         $this->close();
         $this->resetForm();

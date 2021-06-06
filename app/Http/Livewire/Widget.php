@@ -21,6 +21,7 @@ class Widget extends Component
 
     public function render()
     {
-        return view('livewire.widget');
+        $this->total = Product::count();
+        return view('livewire.widget',['total'=>$this->total]);
     }
 }
