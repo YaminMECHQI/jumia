@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Traits\WithSearching;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -10,7 +11,7 @@ class ProductsTable extends Component
 {
     
     use WithFileUploads;
-
+    use WithSearching;
     public $type,$open,$cover;
     public $products;
     //public $title,$price,$quantity,$status,$cover,$category_id; old
@@ -77,8 +78,16 @@ class ProductsTable extends Component
         $this->cover->store('public');
 
         $this->emit('productAdded');
+        
+        if($this->product->id != null){
+            session()->flash('message', 'Product successfully Updated');
+        }else{
+            session()->flash('message', 'Product successfully added');
+        }
+        
         $this->close();
         $this->resetForm();
+
     }
 
     public function edit($id){
@@ -92,7 +101,7 @@ class ProductsTable extends Component
 
     public function render()
     {
-        $this->products = Product::all();
+        $this->products = Product::where('title','like','%'.$this->search.'%')->get();
         return view('livewire.products-table');
     }
 }
