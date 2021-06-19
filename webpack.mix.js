@@ -17,6 +17,9 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
     ]);
 
+mix.styles('resources/css/custom.css','public/css/style.css');
+//mix.js('source','destination');
+
 if (mix.inProduction()) {
     mix.version();
 }
